@@ -1,6 +1,8 @@
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Application extends JFrame{
 	/*//to see how outputs look like
@@ -10,6 +12,7 @@ public class Application extends JFrame{
 			System.out.println(i);
 		}
 	}
+	FINISH GUI KASRA
 	*/
 	
 	private JPanel parameterPanel;
@@ -22,7 +25,7 @@ public class Application extends JFrame{
 		parameterPanel = createParameterPanel();
 		labelPanel = createLabelPanel();
 		cityViewer = createCityViewer();
-		//finish GUI - 	kasra
+		
 	}
 
 	private JList createCityViewer() {
@@ -31,7 +34,10 @@ public class Application extends JFrame{
 	}
 
 	private JPanel createLabelPanel() {
-		// TODO Auto-generated method stub
+		JLabel latitudeLabel = new JLabel("Latitude: ");
+		JTextField latitude = new JTextField("Negative if South");
+		JLabel longitudeLabel = new JLabel("Longitude: ");
+		
 		return null;
 	}
 
