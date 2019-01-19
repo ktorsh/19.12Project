@@ -1,9 +1,20 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/**
+ * 
+ * @author Kasra and Tejas 
+ * GUI to allow the user to interface with the main program 
+ */
 public class Application extends JFrame{
 	/*//to see how outputs look like
 	public static void main(String[] args) {
@@ -12,38 +23,62 @@ public class Application extends JFrame{
 			System.out.println(i);
 		}
 	}
-	FINISH GUI KASRA
 	*/
 	
 	private JPanel parameterPanel;
 	private JPanel labelPanel;
-	private JList cityViewer;
+	private JTextArea cityViewer;
+	private JLabel latitudeLabel;
+	private JTextField latitude;
+	private JLabel longitudeLabel;
+	private JTextField longitude;
+	private JLabel distanceLabel;
+	private JTextField distance;
+	private JButton submit;
 	
 	public Application() {
 		super.setSize(600, 600);
 		super.setTitle("City Finder Based on Location");
-		parameterPanel = createParameterPanel();
-		labelPanel = createLabelPanel();
-		cityViewer = createCityViewer();
+		parameterPanel = new JPanel();
+		latitudeLabel = new JLabel("Latitude: ");
+		latitude = new JTextField(7);
+		longitudeLabel = new JLabel("Longitude: ");
+		longitude = new JTextField(7);
+		distanceLabel = new JLabel("Distance (mi)");
+		distance = new JTextField(4);
+		submit = new JButton("Submit");
+		
+		ActionListener listener = new AddButtonListener();
+		submit.addActionListener(listener);
+		parameterPanel.add(latitudeLabel);
+		parameterPanel.add(latitude);
+		parameterPanel.add(longitudeLabel);
+		parameterPanel.add(longitude);
+		parameterPanel.add(distanceLabel);
+		parameterPanel.add(distance);
+		parameterPanel.add(submit);
+		add(parameterPanel, BorderLayout.NORTH);
+		
+		cityViewer = new JTextArea(2,2);
+		cityViewer.setEditable(false);
+		JScrollPane scroll = new JScrollPane (cityViewer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		add(scroll,BorderLayout.CENTER);
 		
 	}
 
-	private JList createCityViewer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	class AddButtonListener implements ActionListener{
 
-	private JPanel createLabelPanel() {
-		JLabel latitudeLabel = new JLabel("Latitude: ");
-		JTextField latitude = new JTextField("Negative if South");
-		JLabel longitudeLabel = new JLabel("Longitude: ");
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			cityViewer.setText("");
+			City[] cityList = (City[]) DistanceCalculator.filterCities(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()), Double.parseDouble(distance.getText()));
+			for (City c: cityList){
+				String[] cityData = c.getName().split(" ",2);
+				cityViewer.append(cityData[1]+" ("+cityData[0].substring(0, 5)+" mi) " + " -- " + c.getLatitude()+ " , " + c.getLongitude()+"\n");
+			}
+		}
 		
-		return null;
-	}
-
-	private JPanel createParameterPanel() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 

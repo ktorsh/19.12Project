@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author Tejas and Kasra
+ * Main class structure to organize data 
+ */
 public class City implements Comparable<City>{
 	private String name;
 	private double lon; //longitude
